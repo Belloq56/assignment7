@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+
+\title{Assignment 7}
+\author{Stefano Migneco}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Numerical Differentiation}
+There are several methods to calculating numerical derivatives. The first of these is forward differencing, where you start with the first-order Taylor series for (x+h), a step forward:
+\begin{align}
+    f(x+h)=f(x)+ \frac {f'(x)h} {1!}\\
+    f'(x)=\frac {f(x+h)-f(x)} {h}
+\end{align}
+This same process can be repeated for backwards differencing, giving the result of $f'(x)=\frac {f(x)-f(x-h)} {h}$\\
+By taking the difference of both a step forward and backward, and including the second order term, you can arrive at the central differencing scheme:
+\begin{align}
+    f(x+h)=f(x)+ \frac {f'(x)h} {1!} +\frac{f''(x)h^2}{2!}\\
+    f(x-h)=f(x)- \frac {f'(x)h} {1!} +\frac{f''(x)h^2}{2!}\\
+    f(x+h)-f(x-h) = f'x(h)+f'(x)h\\
+    f'(x) =\frac{f(x+h)-f(x-h)}{2h}
+\end{align}
+This can be further expanded to a higher-order scheme, such as the five-point stencil approximation, where you take two points on either side of the point you are evaluating:
+\begin{align}
+    f(x+h)=f(x)+ \frac {f'(x)h} {1!} +\frac{f''(x)h^2}{2!}+\frac{f'''(x)h^3}{3!}\\
+    f(x-h)=f(x)- \frac {f'(x)h} {1!} +\frac{f''(x)h^2}{2!}-\frac{f'''(x)h^3}{3!}\\
+    f(x+2h)=f(x)+ \frac {2f'(x)h} {1!} +\frac{4f''(x)h^2}{2!}+\frac{8f'''(x)h^3}{3!}\\
+    f(x-2h)=f(x)- \frac {2f'(x)h} {1!} +\frac{4f''(x)h^2}{2!}-\frac{8f'''(x)h^3}{3!}\\
+    E1=f(x+h)-f(x-h)=\frac {2f'(x)h} {1!} + \frac {f'''(x)h} {3}\\
+    E2=f(x+2h)-f(x-2h)=\frac {4f'(x)h} {1!}+\frac{8f'''(x)h^3}{3}\\
+    8E1-E2=\frac {12f'(x)h} {1!}\\
+    f'(x)=\frac{8f(x+h)-8f(x-h)-f(x+2h)+f(x-2h)}{12h}
+\end{align}
+
+
+\section{Electric Potential}
+This was the most difficult part of the assignment. In this, a dict of 50 random strength point charges at 50 random locations was created. I extracted the dict into two separate arrays, and then summed each 2D array of voltages created by looping through the dict to create a map. Then, I used a quiver plot to create a display of the electric field.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{contour.png}
+    \caption{A sample plot of the charges and electric field}
+    \label{fig:potential}
+\end{figure}
+
+
+\section{Harmonic Oscillator}
+In this part of the assignment, I programmed two ODEs to represent damped oscillation. There were 4 cases: 0 damping, critical damping at exactly $\frac{4k}{m}$, under-damping at less than $\frac{4k}{m}$, and over-damping at greater than $\frac{4k}{m}$.\\
+\begin{figure}[htp!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{C=0.png}
+    \caption{Oscillation with 0 damping}
+    \label{fig:C=0}
+\end{figure}
+
+\begin{figure}[htp!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{C=4km.png}
+    \caption{No oscillation due to critical damping}
+    \label{fig:C=critical}
+\end{figure}
+\begin{figure}[htp!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{C less than 4km.png}
+    \caption{Oscillation with under-damping}
+    \label{fig:C<critical}
+\end{figure}
+\begin{figure}[htp!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{C greater than 4km.png}
+    \caption{No oscillation due to over-damping}
+    \label{fig:C>critical}
+\end{figure}
+
+\section{Cycling}
+In this question, we were given an ODE representing acceleration as a function of power, mass, and velocity. We were then tasked with solving the ODE over a span of 200 seconds, given initial velocity of 4 m/s, mass of 70kg, and power of 400W.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{bicycle.png}
+    \label{fig:bicycle}
+\end{figure}
+\end{document}
